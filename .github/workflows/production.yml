@@ -1,12 +1,13 @@
 on: push
-name: 🚀 Deploy website on push
+name: 🚀 Teleonco Deploy
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  frontend-deploy:
+    name: 🎉 Deploy front end
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Node.js setup
         uses: actions/setup-node@v3
@@ -16,7 +17,10 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: deploy file to server
+      - name: Quasar build
+        run: quasar build
+
+      - name: Deploy files to server
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           username: 'ubuntu'
